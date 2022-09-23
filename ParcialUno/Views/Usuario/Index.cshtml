@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ParcialUno.Models.Usuario>
+
+@{
+    ViewBag.Title = "Listado de usuarios";
+}
+
+<h2>Listado de Usuarios</h2>
+
+<p>
+    @Html.ActionLink("Registrar Usuario", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioCedula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioApellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioCorreo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioCedula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioApellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioCorreo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { usuarioCedula=item.UsuarioCedula })
+        </td>
+    </tr>
+}
+
+</table>
