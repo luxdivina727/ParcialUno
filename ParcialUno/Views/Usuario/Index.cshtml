@@ -4,11 +4,12 @@
     ViewBag.Title = "Listado de usuarios";
 }
 
-<h2>Listado de Usuarios</h2>
-
-<p>
-    @Html.ActionLink("Registrar Usuario", "Create")
-</p>
+<h2 class="text-center">Listado de Usuarios</h2>
+<div class="col-md-offset-11">
+    <button class="btn btn-success text-white">
+        @Html.ActionLink("Registrar Usuario", "Create")
+    </button>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -26,24 +27,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioCedula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioApellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioCorreo)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { usuarioCedula=item.UsuarioCedula })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioCedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioApellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioCorreo)
+            </td>
+            <td>
+                <button class="btn btn-warning">
+                    @Html.ActionLink("Editar", "Edit", new { usuarioCedula = item.UsuarioCedula })
+                </button>
+            </td>
+        </tr>
+    }
 
 </table>

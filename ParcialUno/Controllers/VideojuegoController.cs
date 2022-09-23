@@ -10,13 +10,28 @@ namespace ParcialUno.Controllers
 {
     public class VideojuegoController : Controller
     {
-        // GET: Videojuego
         public ActionResult Index()
         {
             return View(Data.VideojuegoDAO.Listar());
         }
+        public ActionResult Create()
+        {
+            return View();
+        }
+        public ActionResult Edit(Int64 videoJuegoCodigoEjemplar, Int64 videoJuegoCodigo)
+        {
+            if (videoJuegoCodigoEjemplar == 0 && videoJuegoCodigo == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VideoJuego videoJuego = Data.VideojuegoDAO.Obtener( videoJuegoCodigo, videoJuegoCodigoEjemplar);
+            if (videoJuego == null)
+            {
+                return HttpNotFound();
+            }
+            return View(videoJuego);
 
-        // GET: Videojuego/Details/5
+        }
         public ActionResult Details(Int64 videoJuegoCodigoEjemplar, Int64 videoJuegoCodigo)
         {
             if (videoJuegoCodigoEjemplar == 0 && videoJuegoCodigo == 0)
@@ -51,7 +66,7 @@ namespace ParcialUno.Controllers
             if (ModelState.IsValid)
             {
                 VideoJuego _videoJuego = Data.VideojuegoDAO.Obtener(videoJuego.VideoJuegoCodigo, videoJuego.VideoJuegoCodigoEjemplar);
-                if (_videoJuego != null)
+                if (_videoJuego.VideoJuegoNombre != null)
                 {
                     ViewBag.sms = "Existe un codigo y un codigo ejemplar";
                 }

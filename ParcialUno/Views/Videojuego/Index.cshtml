@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<ParcialUno.Models.VideoJuego>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de videoJuegos";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">Listado de videojuegos</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="col-md-offset-11">
+
+    <button class="btn btn-success text-white ">
+        @Html.ActionLink("Registrar videojuegos", "Create")
+    </button>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -23,23 +26,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoJuegoCodigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoJuegoCodigoEjemplar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoJuegoNombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoJuegoCodigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoJuegoCodigoEjemplar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoJuegoNombre)
+            </td>
+            <td>
+                <button class="btn btn-warning">
+                    @Html.ActionLink("Editar", "Edit", new { item.VideoJuegoCodigo, item.VideoJuegoCodigoEjemplar })
+                </button>
+                <button class="btn btn-success">
+                    @Html.ActionLink("Prestar videojuegos", "Edit", new { item.VideoJuegoCodigo, item.VideoJuegoCodigoEjemplar })
+                </button>
+                <button class="btn btn-primary">
+                    @Html.ActionLink("Listado de prestamos activos", "Edit", new { item.VideoJuegoCodigo, item.VideoJuegoCodigoEjemplar })
+                </button>
+            </td>
+        </tr>
+    }
 
 </table>
