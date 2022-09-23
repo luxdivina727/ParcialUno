@@ -121,9 +121,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PrestamoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VideojuegoController.cs" />
     <Compile Include="Data\Conexion.cs" />
+    <Compile Include="Data\PrestamosDAO.cs" />
     <Compile Include="Data\UsuarioDAO.cs" />
     <Compile Include="Data\VideojuegoDAO.cs" />
     <Compile Include="Global.asax.cs">
@@ -176,6 +178,9 @@
     <Content Include="Views\Videojuego\Index.cshtml" />
     <Content Include="Views\Videojuego\Create.cshtml" />
     <Content Include="Views\Videojuego\Edit.cshtml" />
+    <Content Include="Views\Prestamo\Index.cshtml" />
+    <Content Include="Views\Prestamo\Create.cshtml" />
+    <Content Include="Views\Prestamo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

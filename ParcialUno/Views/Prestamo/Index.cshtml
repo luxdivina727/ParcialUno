@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ParcialUno.Models.Prestamo>
+
+@{
+    ViewBag.Title = "Listado de prestamos activos";
+}
+
+<h2 class="text-center">Listado de prestamos activos</h2>
+
+<div class="col-md-offset-11">
+    <button class="btn btn-success text-white">
+        @Html.ActionLink("Ingresar Prestamos", "Create")
+    </button>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioCedula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VideoJuegoCodigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrestamoFechaRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EsDevuelto)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioCedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoJuegoCodigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrestamoFechaRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EsDevuelto)
+            </td>
+            <td>
+                <button class="btn btn-success">
+                    @Html.ActionLink("Devolver", "Edit", new { prestamoId = item.PrestamoId })
+                </button>
+
+            </td>
+        </tr>
+    }
+
+</table>

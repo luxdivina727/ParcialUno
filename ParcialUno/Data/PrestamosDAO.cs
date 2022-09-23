@@ -8,14 +8,14 @@ using System.Web;
 
 namespace ParcialUno.Data
 {
-    public class VideojuegoDAO
+    public class PrestamosDAO
     {
-        public static List<VideoJuego> Listar()
+        public static List<Prestamo> Listar()
         {
-            List<VideoJuego> listadoVideoJuegos = new List<VideoJuego>();
+            List<Prestamo> listadoUsuarios = new List<Prestamo>();
             using (SqlConnection oConexion = new SqlConnection(Conexion.rutaConexion()))
             {
-                string cadena = "SELECT * FROM [dbo].[VideoJuego]";
+                string cadena = "SELECT * FROM [dbo].[Prestamo] WHERE EsDevuelto=0";
                 SqlCommand cmd = new SqlCommand(cadena, oConexion);
                 cmd.CommandType = CommandType.Text;
 
@@ -29,11 +29,14 @@ namespace ParcialUno.Data
 
                         while (dr.Read())
                         {
-                            listadoVideoJuegos.Add(new VideoJuego()
+                            listadoUsuarios.Add(new Prestamo()
                             {
+                                PrestamoFechaRegistro = Convert.ToDateTime(dr["PrestamoFechaRegistro"]),
+                                UsuarioCedula = Convert.ToInt64(dr["UsuarioCedula"]),
+                                EsDevuelto = Convert.ToBoolean(dr["EsDevuelto"]),
                                 VideoJuegoCodigo = Convert.ToInt64(dr["VideoJuegoCodigo"]),
                                 VideoJuegoCodigoEjemplar = Convert.ToInt64(dr["VideoJuegoCodigoEjemplar"]),
-                                VideoJuegoNombre = Convert.ToString(dr["VideoJuegoNombre"])
+                                PrestamoId = Convert.ToInt64(dr["PrestamoId"])
                             });
                         }
 
@@ -41,20 +44,19 @@ namespace ParcialUno.Data
 
 
 
-                    return listadoVideoJuegos;
+                    return listadoUsuarios;
                 }
                 catch (Exception ex)
                 {
-                    return listadoVideoJuegos;
+                    return listadoUsuarios;
                 }
             }
         }
-
-        public static bool Registrar(VideoJuego videoJuego)
+        public static bool Registrar(Prestamo Prestamo)
         {
             using (SqlConnection oConexion = new SqlConnection(Conexion.rutaConexion()))
             {
-                string cadena = $"INSERT INTO [dbo].[VideoJuego]( VideoJuegoCodigo,VideoJuegoCodigoEjemplar,VideoJuegoNombre) VALUES ({videoJuego.VideoJuegoCodigo},'{videoJuego.VideoJuegoCodigoEjemplar}','{videoJuego.VideoJuegoNombre}')";
+                string cadena = $"INSERT INTO [dbo].[Prestamo]( UsuarioCedula,VideoJuegoCodigo,VideoJuegoCodigoEjemplar,PrestamoFechaRegistro,EsDevuelto) VALUES ({Prestamo.UsuarioCedula},'{Prestamo.VideoJuegoCodigo}','{Prestamo.VideoJuegoCodigoEjemplar}','{Prestamo.PrestamoFechaRegistro}','{Prestamo.EsDevuelto}')";
                 SqlCommand cmd = new SqlCommand(cadena, oConexion);
                 cmd.CommandType = CommandType.Text;
                 try
@@ -69,12 +71,11 @@ namespace ParcialUno.Data
                 }
             }
         }
-
-        public static bool Actualizar(VideoJuego videoJuego)
+        public static bool Actualizar(Prestamo Prestamo)
         {
             using (SqlConnection oConexion = new SqlConnection(Conexion.rutaConexion()))
             {
-                string cadena = $"UPDATE [dbo].[VideoJuego] SET VideoJuegoNombre='{videoJuego.VideoJuegoNombre}' WHERE VideoJuegoCodigo={videoJuego.VideoJuegoCodigo} AND VideoJuegoCodigoEjemplar={videoJuego.VideoJuegoCodigoEjemplar}";
+                string cadena = $"UPDATE [dbo].[Prestamo] SET UsuarioCedula='{Prestamo.UsuarioCedula}',PrestamoFechaRegistro='{Prestamo.PrestamoFechaRegistro}',EsDevuelto='{Prestamo.EsDevuelto}' WHERE PrestamoId={Prestamo.PrestamoId}";
                 SqlCommand cmd = new SqlCommand(cadena, oConexion);
                 cmd.CommandType = CommandType.Text;
                 try
@@ -89,13 +90,13 @@ namespace ParcialUno.Data
                 }
             }
         }
-        public static VideoJuego Obtener(long videoJuegoCodigo, long videoJuegoCodigoEjemplar)
+        public static Prestamo Obtener(long prestamoId)
         {
-            VideoJuego videojuegos = new VideoJuego();
+            Prestamo Prestamo = new Prestamo();
 
             using (SqlConnection oConexion = new SqlConnection(Conexion.rutaConexion()))
             {
-                string cadena = $"SELECT * FROM [dbo].[Videojuego] WHERE VideoJuegoCodigo={videoJuegoCodigo} AND VideoJuegoCodigoEjemplar={videoJuegoCodigoEjemplar}";
+                string cadena = $"SELECT * FROM [dbo].[Prestamo] WHERE PrestamoId={prestamoId}";
                 SqlCommand cmd = new SqlCommand(cadena, oConexion);
                 cmd.CommandType = CommandType.Text;
                 try
@@ -106,30 +107,33 @@ namespace ParcialUno.Data
                     {
                         while (dr.Read())
                         {
-                            videojuegos = new VideoJuego()
+                            Prestamo = new Prestamo()
                             {
+                                PrestamoFechaRegistro = Convert.ToDateTime(dr["PrestamoFechaRegistro"]),
+                                UsuarioCedula = Convert.ToInt64(dr["UsuarioCedula"]),
+                                EsDevuelto = Convert.ToBoolean(dr["EsDevuelto"]),
                                 VideoJuegoCodigo = Convert.ToInt64(dr["VideoJuegoCodigo"]),
                                 VideoJuegoCodigoEjemplar = Convert.ToInt64(dr["VideoJuegoCodigoEjemplar"]),
-                                VideoJuegoNombre = Convert.ToString(dr["VideoJuegoNombre"])
+                                PrestamoId = Convert.ToInt64(dr["PrestamoId"])
                             };
                         }
                     }
-                    return videojuegos;
+                    return Prestamo;
                 }
                 catch (Exception ex)
                 {
-                    return videojuegos;
+                    return Prestamo;
                 }
             }
         }
 
-        public static VideoJuego ObtenerCodigo(long videoJuegoCodigo)
+        public static Prestamo ObtenerPrestamoVideoJuego(long videoJuegoCodigo)
         {
-            VideoJuego videojuegos = new VideoJuego();
+            Prestamo Prestamo = new Prestamo();
 
             using (SqlConnection oConexion = new SqlConnection(Conexion.rutaConexion()))
             {
-                string cadena = $"SELECT * FROM [dbo].[Videojuego] WHERE VideoJuegoCodigo={videoJuegoCodigo}";
+                string cadena = $"SELECT * FROM [dbo].[Prestamo] WHERE VideoJuegoCodigo={videoJuegoCodigo}";
                 SqlCommand cmd = new SqlCommand(cadena, oConexion);
                 cmd.CommandType = CommandType.Text;
                 try
@@ -140,19 +144,22 @@ namespace ParcialUno.Data
                     {
                         while (dr.Read())
                         {
-                            videojuegos = new VideoJuego()
+                            Prestamo = new Prestamo()
                             {
+                                PrestamoFechaRegistro = Convert.ToDateTime(dr["PrestamoFechaRegistro"]),
+                                UsuarioCedula = Convert.ToInt64(dr["UsuarioCedula"]),
+                                EsDevuelto = Convert.ToBoolean(dr["EsDevuelto"]),
                                 VideoJuegoCodigo = Convert.ToInt64(dr["VideoJuegoCodigo"]),
                                 VideoJuegoCodigoEjemplar = Convert.ToInt64(dr["VideoJuegoCodigoEjemplar"]),
-                                VideoJuegoNombre = Convert.ToString(dr["VideoJuegoNombre"])
+                                PrestamoId = Convert.ToInt64(dr["PrestamoId"])
                             };
                         }
                     }
-                    return videojuegos;
+                    return Prestamo;
                 }
                 catch (Exception ex)
                 {
-                    return videojuegos;
+                    return Prestamo;
                 }
             }
         }

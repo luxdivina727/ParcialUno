@@ -1,0 +1,66 @@
+﻿@model ParcialUno.Models.Prestamo
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Devolver videojuego</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PrestamoId)
+
+        <div class="form-group" >
+            @Html.LabelFor(model => model.UsuarioCedula, "Usuario:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UsuarioCedula, new { htmlAttributes = new { @class = "form-control,enable" } })
+                @Html.ValidationMessageFor(model => model.UsuarioCedula, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VideoJuegoCodigo, "VideoJuego:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VideoJuegoCodigo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VideoJuegoCodigo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrestamoFechaRegistro, "Fecha del prestamo:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 disabled">
+                @Html.EditorFor(model => model.PrestamoFechaRegistro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrestamoFechaRegistro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EsDevuelto, "¿Se devolvio?:",htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.EsDevuelto)
+                    @Html.ValidationMessageFor(model => model.EsDevuelto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
