@@ -51,7 +51,7 @@ namespace ParcialUno.Controllers
             if (ModelState.IsValid)
             {
                 Usuario _usuario = Data.UsuarioDAO.Obtener(usuario.UsuarioCedula);
-                if (_usuario != null)
+                if (_usuario.UsuarioNombre != null)
                 {
                     ViewBag.sms = "Existe una cédula en el sistema";
                 }
